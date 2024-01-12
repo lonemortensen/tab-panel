@@ -86,7 +86,6 @@ p {
 /* Layout - Special Styles */
 
 
-
 /* -------------------- Base Header-Footer Styles -------------------- */
 
 /* HEADER */
@@ -114,10 +113,18 @@ p {
     text-align: center;
 }
 
-.title-line {
+.title-line-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    margin: 20px 0px;
+}
+
+.title-line {
+    width: 25%;
     height: 1px;
-    margin: 20px 170px 20px 170px;
+    margin: 0;
     background: #313131;
     border: none;
 }
@@ -153,12 +160,17 @@ p {
 }
 
 .tab a {
+    padding: 22px 11px;
     font-size: 0.9rem;
+}
+
+.panels-list {
+    width: 100%;
 }
 
 .panels {
     background: #e3e2df;
-    padding: 30px 20px;
+    padding: 30px 11px;
 }
 
 .panels h3 {
@@ -167,7 +179,6 @@ p {
 
 /* START JavaScript: Tab highlight styling: */
 .highlight-tab {
-    padding: 22px 8px;
     font-weight: 700;
     background: #e3e2df;
 }
@@ -187,6 +198,18 @@ p {
     
     /* Global and Structural Styles - Tablet */
 
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2.25rem;
+    }
+
+    h3 {
+        font-size: 1.85rem;
+    }
+
     /* ------------- Tablet - Base Header-Footer Styles ------------- *
   
     /* HEADER - Tablet */
@@ -196,6 +219,14 @@ p {
   
     /* SKILLS - Tablet */
 
+    .title-line {
+        width: 20%;
+    }
+
+    .tab a {
+        padding: 22px 11px;
+        font-size: 1rem;
+    }
 }    
 
 /* -------------------------- Desktop Styles ------------------------- */
@@ -203,6 +234,18 @@ p {
 @media only screen and (min-width: 1200px) {
     
     /* Global and Structural Styles - Desktop */
+
+    h1 {
+        font-size: 4.5rem;
+    }
+
+    h2 {
+        font-size: 3.25rem;
+    }
+
+    h3 {
+        font-size: 2.25rem;
+    }
 
     /* ------------- Desktop - Base Header-Footer Styles ------------- *
   
@@ -213,4 +256,16 @@ p {
   
     /* SKILLS - DESKTOP */
 
-}    
+    .tab-panel-wrapper {
+        margin: 80px 0px 30px 0px;
+    }
+
+    .tab a {
+        padding: 22px 20px;
+        font-size: 1.4rem;
+    }
+
+    .panels {
+        padding: 30px 20px;
+    }
+}

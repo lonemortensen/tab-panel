@@ -15,7 +15,6 @@ let tabSets = {};
 /**
  * Loops through the tabs list and stores each tab as a property key and each 
  * associated panel link as a value in the tabSets object.
- * NOTE: Consider removing # in Model so value is simply the link name => don't have to remove anymore further down in code...
 */	
 const tabsList = document.getElementsByClassName("tab-link"); // returns a live HTMLCollection
 const panelsList = document.getElementsByClassName("panels"); // returns a live HTMLCollection
@@ -26,11 +25,12 @@ const getTabData = () => {
     for (let i = 0; i < tabsList.length; i++) {
         let tab = tabsList[i];
         let tabName = tab.id; // Gets value of current tab's id attribute
-        let panelLink = tab.hash;
-        //let panelLinkName = panelLink.replace("#", ""); // See NOTE above on removing #.
+        let panelLink = tab.hash; // Gets value of panel link associated with current tab
+        let panelLinkName = panelLink.replace("#", ""); // Removes # from panel link
         console.log(tabName);
-        tabSets[tabName] = panelLink;
-        //tabSets[tabName] = panelLinkName; // See NOTE above on removing #.
+        console.log(panelLink);
+        console.log(panelLinkName); //works, removed # from panelLink value
+        tabSets[tabName] = panelLinkName; 
     };
 };
 
@@ -94,10 +94,7 @@ const displayDefaultTabSet = (tabSets) => {
 
     // Gets  the panel linked to first tab:
     let defaultPanel = tabSets[defaultTabName];
-    console.log(defaultPanel); //works, shows the hashtag (#html) stored as the value for the first key
-    // Removes # from panel link:
-    let defaultPanelLink = defaultPanel.replace("#", "");
-    console.log(defaultPanelLink); //works, removes the #
+    console.log(defaultPanel); //works, shows the value stored for the first key
 
     // Finds and displays the panel that matches the default panel link:
     for (i = 0; i < panelsList.length; i++) {
@@ -105,7 +102,7 @@ const displayDefaultTabSet = (tabSets) => {
         console.log(panel); //works, shows full panel div html
         let panelName = panel.id;
         console.log(panelName); // works, shows the value of the id 
-        if (panelName.toLowerCase() == defaultPanelLink.toLowerCase()) {
+        if (panelName.toLowerCase() == defaultPanel.toLowerCase()) {
             panel.classList.remove("hide-panels");
         };
     };
@@ -173,10 +170,7 @@ const handleTabSelection = (e) => {
     let selectedTabName = e.target.id;
     console.log(selectedTabName); //works, logs the id of the tab (= object key)
     let selectedPanel = tabSets[selectedTabName];
-    console.log(selectedPanel); //works, logs the hashtag (#) shown for the selected key
-    let selectedPanelLink = selectedPanel.replace("#", "");
-    console.log(selectedPanelLink); //works, removes the #
+    console.log(selectedPanel); //works, logs the value stored for the selected key
     // Calls view with selected panel set:
-    //hidePanels(panelsList);
-    displaySelectedTabSet(selectedTabName, selectedPanelLink);
+    displaySelectedTabSet(selectedTabName, selectedPanel);
 };

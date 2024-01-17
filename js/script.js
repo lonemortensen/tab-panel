@@ -15,35 +15,28 @@ Built with: JavaScript, HTML5, CSS3, and Flexbox.
 
 /* ===== MODEL ===== */
 
-/**
- * Loops through the tabs list and stores each tab as a property key and each 
- * associated panel link as a value in the tabSets object.
-*/	
-
 /* Data model: Object stores tabs (keys) and their associated panels (values): */ 
 let tabSets = {};
 
 /* All tabs: */
-const tabsList = document.getElementsByClassName("tab-link"); // returns a live HTMLCollection
+const tabsList = document.getElementsByClassName("tab-link"); 
 /* All panels: */
-const panelsList = document.getElementsByClassName("panels"); // returns a live HTMLCollection
-console.log(tabsList);
-console.log(panelsList);
+const panelsList = document.getElementsByClassName("panels"); 
 
+/**
+ * Loops through the tabs list and stores each tab as a property key and each 
+ * associated panel link as a value in the tabSets object.
+*/	
 const getTabData = () => {
     for (let i = 0; i < tabsList.length; i++) {
         let tab = tabsList[i];
-        let tabName = tab.id; // Gets the value of current tab's id attribute
+        let tabName = tab.id; 
         let panelLink = tab.hash; // Gets the anchor part of the href attribute value associated with current tab
         let panelLinkName = panelLink.replace("#", ""); // Removes # from the href attribute value
-        console.log(tabName);
-        console.log(panelLink);
-        console.log(panelLinkName); //works, removed #
-        tabSets[tabName] = panelLinkName; // Stores an object property key-value pair for each tab and associated panel 
+        tabSets[tabName] = panelLinkName;  
     };
 };
 
-console.log(tabSets);
 
 /* ===== VIEW ===== */
 
@@ -73,24 +66,21 @@ const removeTabHighlight = (tabs) => {
 
 /** 
  * Adds a click event listener to each tab. 
- * Applies styling to highlight and display only the default (first) tab and panel set on page load.
+ * Applies styling to highlight and display only the default (first) tab and panel on page load.
  * @param defaultTab the first (default) tab in the tabSets object.
  * @param defaultPanel the panel that is stored as the value of the default (first) tab in the tabSets object.
 */
 const displayDefaultTabSet = (defaultTab, defaultPanel) => { 
-    // Adds click event listener to each tab: 
     for (let i = 0; i < tabsList.length; i++) {
         let tab = tabsList[i];
         tab.addEventListener("click", handleTabSelection);
     };
     
-    // Compares the default (first) tab's id to the tab id's in the tabsList variable. If there's a match,
+    // Compares the default tab's id to the tab id's in the tabsList variable. If there's a match,
     // highlight styling is added to the tab: 
     for (let i = 0; i < tabsList.length; i++) {
         let tab = tabsList[i];
-        let tabName = tab.id; // Gets value of current tab's id attribute
-        console.log(tabName); // works, shows the value of the tab's id attribute
-        console.log(defaultTab); // works, shows the value of the default tab's id attribute
+        let tabName = tab.id; 
         if (defaultTab.toLowerCase() == tabName.toLowerCase()) {
             tab.classList.add("highlight-tab"); 
         }; 
@@ -99,10 +89,7 @@ const displayDefaultTabSet = (defaultTab, defaultPanel) => {
     // Finds and displays the panel that matches the default panel link: 
     for (i = 0; i < panelsList.length; i++) {
         let panel = panelsList[i];
-        console.log(panel); //works, shows full panel <div>
-        let panelName = panel.id;
-        console.log(panelName); // works, shows the value of the panel's id 
-        console.log(defaultPanel); // works, shows the default panel (html)
+        let panelName = panel.id; 
         if (panelName.toLowerCase() == defaultPanel.toLowerCase()) {
             panel.classList.remove("hide-panels");
         };
@@ -120,8 +107,6 @@ const displaySelectedTabSet = (selectedTab, selectedPanel) => {
     for (i = 0; i < tabsList.length; i++) {
         let tab = tabsList[i];
         let tabName = tab.id;
-        console.log(tabName);
-        console.log(selectedTab);
         if (tabName.toLowerCase() == selectedTab.toLowerCase()) {
             tab.classList.add("highlight-tab"); 
         };
@@ -141,9 +126,9 @@ const displaySelectedTabSet = (selectedTab, selectedPanel) => {
 /* ===== CONTROLLER ===== */
 
 /**
- * Adds event listener to window and listens for page load.
+ * Adds event listener to window. 
  * Listens for page load and calls View to apply styling to hide all panels. 
- * Calls Model to get tabSets object and get default tab and display default panel.
+ * Calls Model to access tabSets object in order to get the default tab-panel set.
  * Calls View and passes the default tab and panel to highlight and display.
 */
 const handlePageLoad = () => {
@@ -151,13 +136,10 @@ const handlePageLoad = () => {
     getTabData();
     // Gets all tabs in the tabSets object:
     let tabsArray = Object.keys(tabSets);
-    console.log(tabsArray);
     // Gets the first (default) tab in the tabSets object:
     let defaultTabName = tabsArray[0];
-    console.log(defaultTabName);
     // Gets the panel linked to the default tab:
     let defaultPanel = tabSets[defaultTabName];
-    console.log(defaultPanel); //works, shows the value stored for the first key    
 
     displayDefaultTabSet(defaultTabName, defaultPanel);
 };
@@ -167,25 +149,20 @@ window.addEventListener("load", handlePageLoad);
 
 /**
  * Listens for user click on tab.
+ * Calls Model to access the tabSets object.
  * Gets the name (id attribute value) of the selected tab from the event object.
- * Gets the tab-panel set that matches the selected tab from the tabSets object.
- * Calls View to remove styling from default tab and default panel and passes the selected 
+ * Gets the panel that matches the selected tab from the tabSets object.
+ * Calls View to remove styling from the default tab and panel, and passes the selected 
  * tab-panel set for highlight and display. 
  * @param e the event object is used to access the id attribute value of the selected tab.  
 */
 const handleTabSelection = (e) => {
     e.preventDefault();
     getTabData();
-    console.log(e); 
-    // Gets the event objects tab id and gets the associated panel from the tabSets object:
     let selectedTabName = e.target.id;
-    console.log(selectedTabName); //works, logs the id of the tab (= object key)
     let selectedPanel = tabSets[selectedTabName];
-    console.log(selectedPanel); //works, logs the value stored for the selected key
 
-    // Calls View to hide all panels and remove all tab highlights:
     hidePanels(panelsList); 
     removeTabHighlight(tabsList); 
-    // Calls View and passes the selected tab-panel set:
     displaySelectedTabSet(selectedTabName, selectedPanel);
 };

@@ -15,7 +15,7 @@ Built with: JavaScript, HTML5, CSS3, and Flexbox.
 
 /* ===== MODEL ===== */
 
-/* Data model: Object stores tabs (keys) and their associated panels (values): */ 
+/* Object stores tabs (keys) and their associated panels (values): */ 
 let tabSets = {};
 
 /* All tabs: */

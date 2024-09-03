@@ -37,6 +37,4 @@ Main features of the Tabbed Panel project:
 - Flexbox
 
 ## Launch
-
-UPDATE link!!!!!!!
-[See the live version of the Tabbed Panel here.](https://lonemortensen.github.io/portfolio-filter/)
+[See the live version of the Tabbed Panel here.](https://lonemortensen.github.io/tab-panel/)
